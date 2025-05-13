@@ -16,12 +16,14 @@ type RHFCheckboxProps<T extends FieldValues> = {
   name: FieldPath<T>;
   label: string;
   disabled?: boolean;
+  onChange?: (checked: boolean) => void;
 };
 
 function RHFCheckboxField<T extends FieldValues>({
   name,
   label,
   disabled = false,
+  onChange,
 }: RHFCheckboxProps<T>) {
   const {
     control,
@@ -29,6 +31,12 @@ function RHFCheckboxField<T extends FieldValues>({
   } = useFormContext<T>();
 
   const error = errors[name]?.message as string;
+
+  const handleChange = (checked: boolean) => {
+    if (onChange) {
+      onChange(checked);
+    }
+  };
 
   return (
     <FormGroup>
@@ -41,7 +49,10 @@ function RHFCheckboxField<T extends FieldValues>({
               <Checkbox
                 {...field}
                 checked={!!field.value}
-                onChange={(e) => field.onChange(e.target.checked)}
+                onChange={(e) => {
+                  field.onChange(e.target.checked);
+                  handleChange(e.target.checked);
+                }}
                 disabled={disabled}
               />
             }

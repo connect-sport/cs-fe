@@ -1,13 +1,21 @@
 "use client";
 
-import { RHFTextField } from "@/components/atoms/RHFInput";
+import { Register } from "@/components/organisms/Register";
 import { RHFFormProvider } from "@/hooks/form/useFormProvider";
 import { RegisterFormValues, registerSchema } from "@/schemas/register.schema";
+import { useRegisterUser } from "@/hooks/auth/useRegister";
+import { RegisterSuccess } from "@/components/molecules/RegisterSuccess/RegisterSuccess";
 
 const RegisterPage = () => {
+  const { register, isSuccess } = useRegisterUser();
+
   const onSubmit = (data: RegisterFormValues) => {
-    console.log(data);
+    register(data);
   };
+
+  if (isSuccess) {
+    return <RegisterSuccess />;
+  }
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -15,36 +23,16 @@ const RegisterPage = () => {
         schema={registerSchema}
         onSubmit={onSubmit}
         defaultValues={{
-          username: "",
+          name: "",
           email: "",
           password: "",
+          confirmPassword: "",
+          isOwner: false,
+          phoneNumber: "",
         }}
         className="w-full max-w-md p-8 space-y-4 bg-white rounded shadow-md"
       >
-        <h1 className="text-2xl font-bold text-center">Đăng ký</h1>
-
-        <div>
-          <RHFTextField name="username" label="Tên của bạn" />
-        </div>
-
-        <div>
-          <RHFTextField name="email" label="Email của bạn" />
-        </div>
-
-        <div>
-          <RHFTextField
-            type="password"
-            name="password"
-            label="Pasword của bạn"
-          />
-        </div>
-
-        <button
-          type="submit"
-          className="w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
-        >
-          Register
-        </button>
+        <Register />
       </RHFFormProvider>
     </div>
   );

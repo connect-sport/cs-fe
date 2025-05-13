@@ -9,17 +9,20 @@ import { ReactQueryProvider } from "./react-query-provider";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import theme from "@/styles/theme";
+import { SnackbarProvider } from "@/stores/contexts/SnackBarContext";
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
   return (
     <ReduxProvider>
       <ReactQueryProvider>
         <QueryClientProvider client={queryClient}>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            {children}
-            <ReactQueryDevtools initialIsOpen={false} />
-          </ThemeProvider>
+          <SnackbarProvider>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              {children}
+              <ReactQueryDevtools initialIsOpen={false} />
+            </ThemeProvider>
+          </SnackbarProvider>
         </QueryClientProvider>
       </ReactQueryProvider>
     </ReduxProvider>
