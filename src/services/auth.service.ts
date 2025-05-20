@@ -7,9 +7,19 @@ export const register = async (data: UserDto): Promise<UserDto> => {
 };
 
 export const login = async (data: {
-  name: string;
   email: string;
+  password: string;
 }): Promise<UserDto> => {
   const res = await axiosInstance.post("auth/login", data);
+  return res.data;
+};
+
+export const logout = async (): Promise<null> => {
+  const res = await axiosInstance.post("auth/logout");
+  return res.data;
+};
+
+export const getMe = async (): Promise<null> => {
+  const res = await axiosInstance.get("auth/me");
   return res.data;
 };

@@ -1,60 +1,28 @@
 import React from "react";
-import {
-  Container,
-  Box,
-  Typography,
-  TextField,
-  Button,
-  Paper,
-} from "@mui/material";
+import { RHFTextField } from "@/components/atoms/RHFInput";
 
 const Login: React.FC = () => {
   return (
-    <Container
-      component="main"
-      maxWidth="xs"
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        minHeight: "100vh",
-      }}
-    >
-      <Paper elevation={3} style={{ padding: "24px", width: "100%" }}>
-        <Typography
-          component="h1"
-          variant="h5"
-          align="center"
-          style={{ marginBottom: "16px" }}
-        >
-          Login Page
-        </Typography>
-        <form>
-          <Box mb={2}>
-            <TextField
-              fullWidth
-              id="username"
-              label="Username"
-              name="username"
-              variant="outlined"
-            />
-          </Box>
-          <Box mb={2}>
-            <TextField
-              fullWidth
-              id="password"
-              label="Password"
-              name="password"
-              type="password"
-              variant="outlined"
-            />
-          </Box>
-          <Button type="submit" fullWidth variant="contained" color="primary">
-            Login
-          </Button>
-        </form>
-      </Paper>
-    </Container>
+    <section>
+      <div className="mt-2">
+        <RHFTextField name="email" label="Email của bạn" />
+      </div>
+
+      <div className="mt-2">
+        <RHFTextField
+          name="password"
+          type="password"
+          label="Mật khẩu của bạn"
+        />
+      </div>
+
+      <button
+        type="submit"
+        className="w-full px-4 py-2 mt-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
+      >
+        Đăng nhập
+      </button>
+    </section>
   );
 };
 

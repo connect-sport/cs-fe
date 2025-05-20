@@ -1,4 +1,4 @@
-import { LayoutWithoutHeader } from "@/components/templates/LayoutWithoutHeader";
+import { WithoutHeaderTemplate } from "@/components/templates/WithoutHeaderTemplate";
 import React from "react";
 
 export default function RegisterLayout({
@@ -6,5 +6,9 @@ export default function RegisterLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <LayoutWithoutHeader>{children}</LayoutWithoutHeader>;
+  return (
+    <main className="flex items-center justify-center min-h-screen bg-blue-50">
+      <WithoutHeaderTemplate>{children}</WithoutHeaderTemplate>
+    </main>
+  );
 }

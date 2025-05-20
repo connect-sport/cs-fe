@@ -1,6 +1,7 @@
 "use client";
 
 import { HomePage } from "@/components/pages/HomePage";
+import { MainTemplate } from "@/components/templates/MainTemplate";
 import { useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
 
@@ -35,7 +36,7 @@ export default function Home() {
   };
 
   return (
-    <div className="p-6 space-y-4">
+    <MainTemplate>
       <div className="space-y-2">
         {messages.map((msg, i) => (
           <div key={i} className="bg-gray-200 p-2 rounded">
@@ -58,7 +59,7 @@ export default function Home() {
         </button>
       </div>
       <HomePage />
-    </div>
+    </MainTemplate>
   );
 }
 // This is a simple chat application using Socket.IO and Next.js.

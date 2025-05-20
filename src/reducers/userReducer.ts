@@ -1,24 +1,17 @@
-const initialState = { name: "" };
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface UserState {
-  name: string;
-}
+const userSlice = createSlice({
+  name: "user",
+  initialState: {},
+  reducers: {
+    setAccountManage: (state, action: PayloadAction<any>) => {
+      return { ...state, ...action.payload };
+    },
+    clearAccountManage: () => {
+      return {};
+    },
+  },
+});
 
-interface SetNameAction {
-  type: "SET_NAME";
-  payload: string;
-}
-
-type UserAction = SetNameAction;
-
-export default function userReducer(
-  state: UserState = initialState,
-  action: UserAction
-): UserState {
-  switch (action.type) {
-    case "SET_NAME":
-      return { ...state, name: action.payload };
-    default:
-      return state;
-  }
-}
+export const userReducer = userSlice.reducer;
+export const userAction = userSlice.actions;

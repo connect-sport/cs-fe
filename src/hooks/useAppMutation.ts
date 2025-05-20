@@ -1,11 +1,11 @@
 import { useMutation, UseMutationOptions } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
-export function useAppMutation<TData, TVariables, TError = AxiosError>(
-  mutationFn: (variables: TVariables) => Promise<TData>,
-  options?: UseMutationOptions<TData, TError, TVariables>
+export function useAppMutation<TVariables, TResult>(
+  mutationFn: (variables: TVariables) => Promise<TResult>,
+  options?: UseMutationOptions<TResult, AxiosError, TVariables>
 ) {
-  const mutation = useMutation<TData, TError, TVariables>({
+  const mutation = useMutation<TResult, AxiosError, TVariables>({
     mutationFn,
     ...options,
   });

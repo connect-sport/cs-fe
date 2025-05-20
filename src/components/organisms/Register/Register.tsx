@@ -1,13 +1,20 @@
 import { RHFCheckboxField } from "@/components/atoms/RHFCheckbox";
 import { RHFTextField } from "@/components/atoms/RHFInput";
-import { Typography } from "@mui/material";
+import { LOGIN_PATH } from "@/constants/path";
+import { Button, Typography } from "@mui/material";
+import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 
 const Register: React.FC = () => {
   const { watch, setValue } = useFormContext();
+  const { replace } = useRouter();
 
   const isOwner = watch("isOwner");
+
+  const backToLogin = () => {
+    replace(LOGIN_PATH);
+  };
 
   useEffect(() => {
     if (!isOwner) {
@@ -64,12 +71,24 @@ const Register: React.FC = () => {
         </div>
       )}
 
-      <button
+      <Button
         type="submit"
+        variant="contained"
+        color="primary"
         className="w-full px-4 py-2 mt-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
       >
-        Register
-      </button>
+        Đăng ký
+      </Button>
+
+      <Button
+        type="button"
+        variant="contained"
+        color="secondary"
+        className="w-full px-4 py-2 mt-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
+        onClick={backToLogin}
+      >
+        Đăng nhập
+      </Button>
     </main>
   );
 };

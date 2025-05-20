@@ -10,21 +10,29 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import theme from "@/styles/theme";
 import { SnackbarProvider } from "@/stores/contexts/SnackBarContext";
+import { DrawerProvider } from "@/stores/contexts/DrawerContext";
+import { ModalProvider } from "@/stores/contexts/ModalContext";
+import { ModalRenderer } from "@/utils/ModalRenderer";
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
   return (
-    <ReduxProvider>
-      <ReactQueryProvider>
-        <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <ReduxProvider>
+        <ReactQueryProvider>
           <SnackbarProvider>
-            <ThemeProvider theme={theme}>
-              <CssBaseline />
-              {children}
-              <ReactQueryDevtools initialIsOpen={false} />
-            </ThemeProvider>
+            <ModalProvider>
+              <DrawerProvider>
+                <ThemeProvider theme={theme}>
+                  <CssBaseline />
+                  {children}
+                  <ReactQueryDevtools initialIsOpen={false} />
+                  <ModalRenderer />
+                </ThemeProvider>
+              </DrawerProvider>
+            </ModalProvider>
           </SnackbarProvider>
-        </QueryClientProvider>
-      </ReactQueryProvider>
-    </ReduxProvider>
+        </ReactQueryProvider>
+      </ReduxProvider>
+    </QueryClientProvider>
   );
 }

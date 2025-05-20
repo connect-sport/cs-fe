@@ -1,10 +1,20 @@
-import { MainLayout } from "@/components/templates/MainLayout/MainLayout";
+import { useGetMe } from "@/hooks/auth/useGetMe";
+import { useAppDispatch } from "@/hooks/useAppDispatch";
+import { useEffect } from "react";
 
 const HomePage = () => {
-  return (
-    <MainLayout>
-      <div>a</div>
-    </MainLayout>
-  );
+  const { data } = useGetMe();
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      dispatch({ type: "GET_USER", payload: data });
+    };
+
+    fetchUser();
+  }, [data, dispatch]);
+
+  return <div>a</div>;
 };
 export { HomePage };

@@ -18,23 +18,21 @@ const RegisterPage = () => {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <RHFFormProvider<RegisterFormValues>
-        schema={registerSchema}
-        onSubmit={onSubmit}
-        defaultValues={{
-          name: "",
-          email: "",
-          password: "",
-          confirmPassword: "",
-          isOwner: false,
-          phoneNumber: "",
-        }}
-        className="w-full max-w-md p-8 space-y-4 bg-white rounded shadow-md"
-      >
-        <Register />
-      </RHFFormProvider>
-    </div>
+    <RHFFormProvider<RegisterFormValues>
+      schema={registerSchema}
+      onSubmit={onSubmit}
+      defaultValues={{
+        name: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        isOwner: false,
+        phoneNumber: "",
+      }}
+      className="w-full max-w-md p-8 space-y-4 bg-white rounded shadow-md"
+    >
+      <Register />
+    </RHFFormProvider>
   );
 };
 
