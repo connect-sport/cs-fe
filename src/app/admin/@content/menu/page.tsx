@@ -1,10 +1,10 @@
-import React from "react";
+import { MenuPage } from "@/components/pages/Menu";
+import React, { Suspense } from "react";
 
-export default function MenuPage() {
+export default function MenuContent() {
   return (
-    <div>
-      <h1>Menu Page</h1>
-      {/* Add your menu content here */}
-    </div>
+    <Suspense fallback={<div>Loading...</div>}>
+      <MenuPage />
+    </Suspense>
   );
 }

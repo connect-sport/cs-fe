@@ -1,19 +1,19 @@
-import { useCategory } from "@/hooks/category/useCategory";
+import { useMenu } from "@/hooks/menu/useMenu";
 import { ModalPropsMap } from "@/types/modalProps";
 import { Button } from "@mui/material";
 import React from "react";
 
-const CategoryDeleteModal: React.FC<ModalPropsMap["DELETE_CATEGORY"]> = ({
+const MenuDeleteModal: React.FC<ModalPropsMap["DELETE_MENU"]> = ({
   data,
   onSuccess,
   onError,
   onClose,
 }) => {
-  const { onDeleteCategory, isLoadingDelete } = useCategory();
+  const { onDeleteMenu, isLoadingDelete } = useMenu();
 
   const onDelete = async () => {
     try {
-      const result = await onDeleteCategory(data.id);
+      const result = await onDeleteMenu(data.id);
       if (result) {
         onSuccess?.(result);
       }
@@ -28,7 +28,7 @@ const CategoryDeleteModal: React.FC<ModalPropsMap["DELETE_CATEGORY"]> = ({
     <main className="text-center">
       <h2>Delete Category</h2>
       <p className="my-2">
-        <span>Are you sure you want to delete the category</span>
+        <span>Are you sure you want to delete the menu</span>
         <strong className="ml-1">{data.name}</strong>?
       </p>
       <div className="flex flex-row gap-2 justify-center mt-3">
@@ -48,4 +48,4 @@ const CategoryDeleteModal: React.FC<ModalPropsMap["DELETE_CATEGORY"]> = ({
   );
 };
 
-export { CategoryDeleteModal };
+export { MenuDeleteModal };

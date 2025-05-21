@@ -1,3 +1,5 @@
+"use client";
+
 import { ModalKey } from "@/constants/modalContentMap";
 import { ModalPropsMap } from "@/types/modalProps";
 import { createContext, useContext, useState } from "react";

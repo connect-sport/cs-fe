@@ -3,20 +3,20 @@ import React, { FC } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import { useModal } from "@/stores/contexts/ModalContext";
 import { MODAL_KEYS } from "@/constants/modalContentMap";
-import { useCategory } from "@/hooks/category/useCategory";
 import { useSnackbar } from "@/stores/contexts/SnackBarContext";
+import { useMenu } from "@/hooks/menu/useMenu";
 
-const CategoryAddButton: FC = ({}) => {
+const MenuAddButton: FC = ({}) => {
   const { openModal, closeModal } = useModal();
-  const { onRefetchCategories } = useCategory();
+  const { onRefetchMenus } = useMenu();
   const { showError, showSuccess } = useSnackbar();
 
-  const handleAddCategory = () => {
-    openModal(MODAL_KEYS.CREATE_OR_UPDATE_CATEGORY, {
-      category: null,
+  const handleAddMenu = () => {
+    openModal(MODAL_KEYS.CREATE_OR_UPDATE_MENU, {
+      menu: null,
       onSuccess: () => {
         closeModal();
-        onRefetchCategories();
+        onRefetchMenus();
         showSuccess("Create category success");
       },
       onError: (message) => {
@@ -32,11 +32,11 @@ const CategoryAddButton: FC = ({}) => {
       color="primary"
       startIcon={<AddIcon />}
       sx={{ mb: 2 }}
-      onClick={() => handleAddCategory()}
+      onClick={() => handleAddMenu()}
     >
       Thêm mới
     </Button>
   );
 };
 
-export { CategoryAddButton };
+export { MenuAddButton };

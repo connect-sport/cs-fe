@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { Reponse } from "./response";
 
-export const categoryRequest = z.object({
+export const menuRequest = z.object({
   id: z.string().optional(),
   data: z.object({
     name: z.string().min(1, "Tên không được để trống"),
@@ -9,7 +9,7 @@ export const categoryRequest = z.object({
   }),
 });
 
-export const CategoryDto = z.object({
+export const MenuDto = z.object({
   id: z.string(),
   name: z.string(),
   alias: z.string(),
@@ -21,11 +21,11 @@ export const CategoryDto = z.object({
 
 export const categoryResponse = Reponse.merge(
   z.object({
-    data: CategoryDto,
+    data: MenuDto,
   })
 );
 
-export type CategoryDto = z.infer<typeof CategoryDto>;
-export type CreateCategoryReq = z.infer<typeof categoryRequest>;
-export type UpdateCategoryReq = z.infer<typeof categoryRequest>;
-export type CategoryRes = z.infer<typeof categoryResponse>;
+export type MenuDto = z.infer<typeof MenuDto>;
+export type CreateMenuReq = z.infer<typeof menuRequest>;
+export type UpdateMenuReq = z.infer<typeof menuRequest>;
+export type MenuRes = z.infer<typeof categoryResponse>;

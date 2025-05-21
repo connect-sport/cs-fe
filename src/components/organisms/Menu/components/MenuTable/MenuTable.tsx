@@ -1,5 +1,3 @@
-import { CategoryDto } from "@/dtos/category.dto";
-import { useCategory } from "@/hooks/category/useCategory";
 import {
   IconButton,
   Paper,
@@ -16,19 +14,21 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useModal } from "@/stores/contexts/ModalContext";
 import { MODAL_KEYS } from "@/constants/modalContentMap";
 import { useSnackbar } from "@/stores/contexts/SnackBarContext";
+import { useMenu } from "@/hooks/menu/useMenu";
+import { MenuDto } from "@/dtos/menu.dto";
 
-const CategoryTable: FC = () => {
-  const { categories, onRefetchCategories } = useCategory();
+const MenuTable: FC = () => {
+  const { menus, onRefetchMenus } = useMenu();
   const { openModal, closeModal } = useModal();
   const { showError, showInfo } = useSnackbar();
 
-  const onEditCategory = (category: CategoryDto) => {
-    openModal(MODAL_KEYS.CREATE_OR_UPDATE_CATEGORY, {
-      category,
+  const onEditMenu = (menu: MenuDto) => {
+    openModal(MODAL_KEYS.CREATE_OR_UPDATE_MENU, {
+      menu,
       onSuccess() {
-        showInfo("Update category success");
+        showInfo("Update menu success");
         closeModal();
-        onRefetchCategories();
+        onRefetchMenus();
       },
       onError(err) {
         showError(err);
@@ -39,16 +39,16 @@ const CategoryTable: FC = () => {
     });
   };
 
-  const onDeleteCategory = (category: CategoryDto) => {
-    openModal(MODAL_KEYS.DELETE_CATEGORY, {
+  const onDeleteMenu = (menu: MenuDto) => {
+    openModal(MODAL_KEYS.DELETE_MENU, {
       data: {
-        id: category._id,
-        name: category.name,
+        id: menu._id,
+        name: menu.name,
       },
       onSuccess() {
-        showInfo("Delete category success");
+        showInfo("Delete menu success");
         closeModal();
-        onRefetchCategories();
+        onRefetchMenus();
       },
       onError(err) {
         showError(err);
@@ -71,28 +71,28 @@ const CategoryTable: FC = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {(categories || []).map((category: CategoryDto, index: number) => (
+          {(menus || []).map((menu: MenuDto, index: number) => (
             <TableRow
-              key={category._id}
+              key={menu._id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row">
                 {index}
               </TableCell>
-              <TableCell align="right">{category.name}</TableCell>
-              <TableCell align="right">{category.alias}</TableCell>
+              <TableCell align="right">{menu.name}</TableCell>
+              <TableCell align="right">{menu.alias}</TableCell>
               <TableCell align="right">
                 <IconButton
                   color="primary"
                   size="small"
-                  onClick={() => onEditCategory(category)}
+                  onClick={() => onEditMenu(menu)}
                 >
                   <EditIcon />
                 </IconButton>
                 <IconButton
                   color="error"
                   size="small"
-                  onClick={() => onDeleteCategory(category)}
+                  onClick={() => onDeleteMenu(menu)}
                 >
                   <DeleteIcon />
                 </IconButton>
@@ -105,4 +105,4 @@ const CategoryTable: FC = () => {
   );
 };
 
-export { CategoryTable };
+export { MenuTable };

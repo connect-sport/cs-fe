@@ -1,54 +1,54 @@
 import { useAppQuery } from "../useAppQuery";
-import {
-  createCategory,
-  deleteCategory,
-  getCategories,
-  updateCategory,
-} from "@/services/category.service";
 import { useAppMutation } from "../useAppMutation";
 import {
   CategoryRes,
   CreateCategoryReq,
   UpdateCategoryReq,
 } from "@/dtos/category.dto";
+import {
+  createMenu,
+  deleteMenu,
+  getMenus,
+  updateMenu,
+} from "@/services/menu.service";
 
-export const useCategory = () => {
+export const useMenu = () => {
   const {
-    data: categories,
+    data: menus,
     isLoading,
-    refetch: onRefetchCategories,
-  } = useAppQuery(["getCategories"], getCategories, {
+    refetch: onRefetchMenus,
+  } = useAppQuery(["getMenus"], getMenus, {
     select: (data) => data || [],
   });
 
   const { mutateAsync: mutateCreatingCategory, isLoading: isLoadingCreate } =
-    useAppMutation<CreateCategoryReq, CategoryRes>(createCategory);
+    useAppMutation<CreateCategoryReq, CategoryRes>(createMenu);
 
   const { mutateAsync: mutateUpdatingCategory, isLoading: isLoadingUpdate } =
-    useAppMutation<UpdateCategoryReq, CategoryRes>(updateCategory);
+    useAppMutation<UpdateCategoryReq, CategoryRes>(updateMenu);
 
   const { mutateAsync: mutateDeletingCategory, isLoading: isLoadingDelete } =
-    useAppMutation<string, CategoryRes>(deleteCategory);
+    useAppMutation<string, CategoryRes>(deleteMenu);
 
-  const onCreateCategory = async (param: CreateCategoryReq) => {
+  const onCreateMenu = async (param: CreateCategoryReq) => {
     return await mutateCreatingCategory(param);
   };
 
-  const onUpdateCategory = (param: UpdateCategoryReq) => {
+  const onUpdateMenu = (param: UpdateCategoryReq) => {
     return mutateUpdatingCategory(param);
   };
 
-  const onDeleteCategory = (id: string) => {
+  const onDeleteMenu = (id: string) => {
     return mutateDeletingCategory(id);
   };
 
   return {
     isLoading,
-    categories,
-    onRefetchCategories,
-    onCreateCategory,
-    onUpdateCategory,
-    onDeleteCategory,
+    menus,
+    onRefetchMenus,
+    onCreateMenu,
+    onUpdateMenu,
+    onDeleteMenu,
     isLoadingCreate,
     isLoadingUpdate,
     isLoadingDelete,
