@@ -1,36 +1,33 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CategoryDto } from "@/dtos/category.dto";
 import { MenuDto } from "@/dtos/menu.dto";
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
+export type ModalCallbackHandlers = {
+  onSuccess: (data: any) => void;
+  onError: (err: any) => void;
+  onClose: () => void;
+};
+
 export type ModalPropsMap = {
   CREATE_OR_UPDATE_CATEGORY: {
-    category: CategoryDto | null;
-    onSuccess: (data: any) => void;
-    onError: (err: any) => void;
-    onClose: () => void;
-  };
+    category?: CategoryDto | null;
+  } & ModalCallbackHandlers;
   DELETE_CATEGORY: {
-    data: {
+    data?: {
       id: string;
       name: string;
     };
-    onSuccess: (data: any) => void;
-    onError: (err: any) => void;
-    onClose: () => void;
-  };
+  } & ModalCallbackHandlers;
   CREATE_OR_UPDATE_MENU: {
-    menu: MenuDto | null;
-    onSuccess: (data: any) => void;
-    onError: (err: any) => void;
-    onClose: () => void;
-  };
+    menu?: MenuDto | null;
+  } & ModalCallbackHandlers;
   DELETE_MENU: {
-    data: {
+    data?: {
       id: string;
       name: string;
     };
-    onSuccess: (data: any) => void;
-    onError: (err: any) => void;
-    onClose: () => void;
-  };
+  } & ModalCallbackHandlers;
+  CREATE_OR_UPDATE_ARTICLE: {
+    article?: any;
+  } & ModalCallbackHandlers;
 };

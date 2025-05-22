@@ -2,7 +2,7 @@
 
 import { Register } from "@/components/organisms/Register";
 import { RHFFormProvider } from "@/hooks/form/useFormProvider";
-import { RegisterFormValues, registerSchema } from "@/schemas/register.schema";
+import { RegisterFormValues, registerSchema } from "@/schemas/register";
 import { useRegisterUser } from "@/hooks/auth/useRegister";
 import { RegisterSuccess } from "@/components/molecules/RegisterSuccess/RegisterSuccess";
 

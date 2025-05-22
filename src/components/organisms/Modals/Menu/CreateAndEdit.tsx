@@ -8,7 +8,7 @@ import { useMenu } from "@/hooks/menu/useMenu";
 import { CreateMenuReq } from "@/dtos/menu.dto";
 import { MenuFormValues, menuSchema } from "@/schemas/menu";
 
-const UpdateAndEditMenuModal = ({
+const CreateAndEditMenuModal = ({
   menu,
   onSuccess,
   onError,
@@ -67,4 +67,4 @@ const UpdateAndEditMenuModal = ({
   );
 };
 
-export { UpdateAndEditMenuModal };
+export { CreateAndEditMenuModal };

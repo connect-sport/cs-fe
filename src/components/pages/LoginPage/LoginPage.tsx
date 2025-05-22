@@ -3,7 +3,7 @@
 import React from "react";
 import { Login } from "@/components/organisms/Login";
 import { RHFFormProvider } from "@/hooks/form/useFormProvider";
-import { LoginFormValues, loginSchema } from "@/schemas/login.schema";
+import { LoginFormValues, loginSchema } from "@/schemas/login";
 import { useLogin } from "@/hooks/auth/useLogin";
 import { useRouter } from "next/navigation";
 import { useSnackbar } from "@/stores/contexts/SnackBarContext";

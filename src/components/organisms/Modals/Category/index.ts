@@ -1,2 +1,2 @@
 export { CategoryDeleteModal } from "./Delete";
-export { UpdateAndEditCategoryModal } from "./UpdateAndEdit";
+export { CreateAndEditCategoryModal } from "./CreateAndEdit";

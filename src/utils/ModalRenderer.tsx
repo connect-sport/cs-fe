@@ -11,7 +11,7 @@ export const ModalRenderer = () => {
 
   return (
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-      <div className="bg-white rounded-xl p-6 shadow-md max-w-lg w-full">
+      <div className="bg-white rounded-xl p-6 shadow-md lg:max-w-xl w-full">
         <Component {...props} />
       </div>
     </div>

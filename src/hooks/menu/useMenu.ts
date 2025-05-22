@@ -5,12 +5,7 @@ import {
   CreateCategoryReq,
   UpdateCategoryReq,
 } from "@/dtos/category.dto";
-import {
-  createMenu,
-  deleteMenu,
-  getMenus,
-  updateMenu,
-} from "@/services/menu.service";
+import { createMenu, deleteMenu, getMenus, updateMenu } from "@/services/menu";
 
 export const useMenu = () => {
   const {
@@ -21,25 +16,25 @@ export const useMenu = () => {
     select: (data) => data || [],
   });
 
-  const { mutateAsync: mutateCreatingCategory, isLoading: isLoadingCreate } =
+  const { mutateAsync: mutateCreatingMenu, isLoading: isLoadingCreate } =
     useAppMutation<CreateCategoryReq, CategoryRes>(createMenu);
 
-  const { mutateAsync: mutateUpdatingCategory, isLoading: isLoadingUpdate } =
+  const { mutateAsync: mutateUpdatingMenu, isLoading: isLoadingUpdate } =
     useAppMutation<UpdateCategoryReq, CategoryRes>(updateMenu);
 
-  const { mutateAsync: mutateDeletingCategory, isLoading: isLoadingDelete } =
+  const { mutateAsync: mutateDeletingMenu, isLoading: isLoadingDelete } =
     useAppMutation<string, CategoryRes>(deleteMenu);
 
   const onCreateMenu = async (param: CreateCategoryReq) => {
-    return await mutateCreatingCategory(param);
+    return await mutateCreatingMenu(param);
   };
 
   const onUpdateMenu = (param: UpdateCategoryReq) => {
-    return mutateUpdatingCategory(param);
+    return mutateUpdatingMenu(param);
   };
 
   const onDeleteMenu = (id: string) => {
-    return mutateDeletingCategory(id);
+    return mutateDeletingMenu(id);
   };
 
   return {

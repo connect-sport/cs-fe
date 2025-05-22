@@ -1,4 +1,4 @@
-import { logout } from "@/services/auth.service";
+import { logout } from "@/services/auth";
 import { useAppMutation } from "../useAppMutation";
 
 export const useLogout = () => {

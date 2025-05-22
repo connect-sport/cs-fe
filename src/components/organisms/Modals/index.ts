@@ -1,15 +1,17 @@
 import { MODAL_KEYS, ModalKey } from "@/constants/modalContentMap";
 import { ModalPropsMap } from "@/types/modalProps";
-import { MenuDeleteModal, UpdateAndEditMenuModal } from "./Menu";
-import { CategoryDeleteModal, UpdateAndEditCategoryModal } from "./Category";
+import { CreateAndEditMenuModal, MenuDeleteModal } from "./Menu";
+import { CategoryDeleteModal, CreateAndEditCategoryModal } from "./Category";
+import { CreateAndEditArticleModal } from "./Article/CreateAndEdit";
 
 type ModalComponentMap = {
   [K in ModalKey]: React.FC<ModalPropsMap[K]>;
 };
 
 export const MODAL_COMPONENTS: ModalComponentMap = {
-  [MODAL_KEYS.CREATE_OR_UPDATE_CATEGORY]: UpdateAndEditCategoryModal,
+  [MODAL_KEYS.CREATE_OR_UPDATE_CATEGORY]: CreateAndEditCategoryModal,
   [MODAL_KEYS.DELETE_CATEGORY]: CategoryDeleteModal,
-  [MODAL_KEYS.CREATE_OR_UPDATE_MENU]: UpdateAndEditMenuModal,
+  [MODAL_KEYS.CREATE_OR_UPDATE_MENU]: CreateAndEditMenuModal,
   [MODAL_KEYS.DELETE_MENU]: MenuDeleteModal,
+  [MODAL_KEYS.CREATE_OR_UPDATE_ARTICLE]: CreateAndEditArticleModal, // Placeholder for article modal
 };

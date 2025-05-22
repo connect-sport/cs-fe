@@ -1,0 +1,1 @@
+export { SportImage } from "./SportImage";

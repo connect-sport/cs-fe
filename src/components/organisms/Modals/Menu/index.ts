@@ -1,2 +1,2 @@
 export { MenuDeleteModal } from "./Delete";
-export { UpdateAndEditMenuModal } from "./UpdateAndEdit";
+export { CreateAndEditMenuModal } from "./CreateAndEdit";

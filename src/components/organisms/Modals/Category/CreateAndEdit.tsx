@@ -7,13 +7,14 @@ import { CreateCategoryReq } from "@/dtos/category.dto";
 import { Button } from "@mui/material";
 import { ModalPropsMap } from "@/types/modalProps";
 import { isObject } from "lodash";
+import { MODAL_KEYS } from "@/constants/modalContentMap";
 
-const UpdateAndEditCategoryModal = ({
+const CreateAndEditCategoryModal = ({
   category,
   onSuccess,
   onError,
   onClose,
-}: ModalPropsMap["CREATE_OR_UPDATE_CATEGORY"]) => {
+}: ModalPropsMap[typeof MODAL_KEYS.CREATE_OR_UPDATE_CATEGORY]) => {
   const {
     onCreateCategory,
     onUpdateCategory,
@@ -79,4 +80,4 @@ const UpdateAndEditCategoryModal = ({
   );
 };
 
-export { UpdateAndEditCategoryModal };
+export { CreateAndEditCategoryModal };

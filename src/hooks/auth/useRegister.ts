@@ -1,4 +1,4 @@
-import { register } from "@/services/auth.service";
+import { register } from "@/services/auth";
 import { useAppMutation } from "../useAppMutation";
 import { useSnackbar } from "@/stores/contexts/SnackBarContext";
 

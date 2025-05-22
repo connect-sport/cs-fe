@@ -1,4 +1,4 @@
-import { getMe } from "@/services/auth.service";
+import { getMe } from "@/services/auth";
 import { useAppQuery } from "../useAppQuery";
 
 export const useGetMe = () => {

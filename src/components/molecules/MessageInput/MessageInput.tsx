@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/atoms/Input";
 import { Button } from "@/components/atoms/Button";
-import { MessageForm, messageSchema } from "@/schemas/messageInput.schema";
+import { MessageForm, messageSchema } from "@/schemas/messageInput";
 
 const MessageInput = () => {
   const {

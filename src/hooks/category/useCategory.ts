@@ -4,7 +4,7 @@ import {
   deleteCategory,
   getCategories,
   updateCategory,
-} from "@/services/category.service";
+} from "@/services/category";
 import { useAppMutation } from "../useAppMutation";
 import {
   CategoryRes,

@@ -44,7 +44,7 @@ export default function Home() {
           </div>
         ))}
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-2 left-0">
         <input
           className="border rounded p-2 flex-1"
           value={input}

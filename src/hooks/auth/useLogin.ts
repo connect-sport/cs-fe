@@ -1,4 +1,4 @@
-import { login } from "@/services/auth.service";
+import { login } from "@/services/auth";
 import { useAppMutation } from "../useAppMutation";
 
 export const useLogin = () => {
