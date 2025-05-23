@@ -1,3 +1,5 @@
-export const MENU_DRAWER = "MENU_DRAWER";
+export const DRAWER_KEYS = {
+  FILTER_ARTICLE: "FILTER_ARTICLE",
+} as const;
 
-export type DrawerContentType = typeof MENU_DRAWER;
+export type DrawerKey = keyof typeof DRAWER_KEYS;

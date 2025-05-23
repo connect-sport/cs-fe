@@ -1,5 +1,4 @@
 import { ARTICLE_TYPE_OPTIONS } from "@/constants/article";
-import { DISTRICTS } from "@/constants/districts";
 import { MODAL_KEYS } from "@/constants/modalContentMap";
 import { useArticle } from "@/hooks/article/useArticle";
 import { RHFFormProvider } from "@/hooks/form/useFormProvider";
@@ -36,10 +35,10 @@ const CreateAndEditArticleModal = ({
       defaultValues={{
         title: ARTICLE_TYPE_OPTIONS[0].value,
         phoneNumber: "",
-        address: DISTRICTS[0].value,
+        address: "",
         description: "",
         category: article?.alias ?? "",
-        level: [],
+        levels: [],
       }}
       className="w-full space-y-4 bg-white rounded"
     >

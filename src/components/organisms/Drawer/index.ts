@@ -1,10 +1,11 @@
-import { DrawerContentType, MENU_DRAWER } from "@/constants/drawerContentMap";
-import React from "react";
+import { DRAWER_KEYS, DrawerKey } from "@/constants/drawerContentMap";
+import { FilterArticleDrawer } from "./FilterArticle";
+import { DrawerPropsMap } from "@/types/drawerProps";
 
-const MenuDrawer = import("./Menu").then(
-  (module) => module.MenuDrawer as unknown as React.ReactNode
-);
+type DrawerComponentMap = {
+  [K in DrawerKey]: React.FC<DrawerPropsMap[K]>;
+};
 
-export const drawerContentMap: Record<DrawerContentType, React.ReactNode> = {
-  [MENU_DRAWER]: MenuDrawer,
+export const DrawerComponentMap: DrawerComponentMap = {
+  [DRAWER_KEYS.FILTER_ARTICLE]: FilterArticleDrawer,
 };

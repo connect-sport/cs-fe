@@ -18,13 +18,8 @@ export const SportImage: React.FC<SportImageProps> = ({ type, alt = "" }) => {
   }, [type]);
 
   return (
-    <Image
-      src={imageSrc}
-      width={0}
-      height={0}
-      sizes="100vh"
-      className="w-full h-auto"
-      alt={alt}
-    />
+    <div className="relative w-full aspect-[3/2] overflow-hidden rounded-lg">
+      <Image src={imageSrc} className="object-cover" alt={alt} priority fill />
+    </div>
   );
 };

@@ -2,7 +2,6 @@ import React from "react";
 import { FormControl, FormHelperText } from "@mui/material";
 import { Controller, useFormContext } from "react-hook-form";
 import { Cascader, CascaderProps } from "antd";
-import { flatMap } from "lodash";
 
 type Option = {
   label: string;
@@ -27,7 +26,7 @@ const RHFAutoComplete: React.FC<Props> = ({
   const onChange: CascaderProps<Option, "value", true>["onChange"] = (
     value
   ) => {
-    setValue(name, flatMap(value));
+    setValue(name, value);
   };
 
   return (

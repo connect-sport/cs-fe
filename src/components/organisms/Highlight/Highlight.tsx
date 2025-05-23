@@ -1,15 +1,11 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { BaseSwiper } from "@/components/atoms/Swiper";
 import { useArticle } from "@/hooks/article/useArticle";
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Typography,
-} from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { ArticleDto } from "@/dtos/article";
+import { CategoryIcon } from "@/components/atoms/CategoryIcon";
+import { useRouter } from "next/navigation";
+import { ArticleCard } from "@/components/molecules/Article/Card";
 
 interface HighlightProps {
   title: string;
@@ -17,13 +13,33 @@ interface HighlightProps {
 }
 
 const Highlight: React.FC<HighlightProps> = ({ title, alias }) => {
-  const { articles } = useArticle(alias);
+  const { articles, onGetListArticle } = useArticle(alias);
+  const { push } = useRouter();
+  const onGetListArticleRef = useRef(onGetListArticle);
+
+  const showAll = () => {
+    push(`${alias}`);
+  };
+
+  useEffect(() => {
+    onGetListArticleRef.current = onGetListArticle;
+  }, [onGetListArticle]);
+
+  useEffect(() => {
+    onGetListArticleRef.current({ alias });
+  }, [alias]);
 
   return (
-    <section className="mb-4">
-      <Typography variant="h3" className="text-left !mb-4">
-        {title}
-      </Typography>
+    <section className="mb-4 border-b b border-b-gray-200 pb-4">
+      <div className="flex justify-between items-center">
+        <Typography variant="h4" className="text-left !mb-4 flex gap-2">
+          <CategoryIcon type={alias} size={30} color="#4CAF50" />
+          <span>{title}</span>
+        </Typography>
+        <Button variant="outlined" onClick={showAll}>
+          Xem tất cả
+        </Button>
+      </div>
       <div>
         <BaseSwiper
           breakpoints={{
@@ -34,27 +50,7 @@ const Highlight: React.FC<HighlightProps> = ({ title, alias }) => {
           }}
         >
           {articles.map((article: ArticleDto) => (
-            <Card key={article._id} sx={{ maxWidth: 345, height: 400 }}>
-              <CardMedia
-                component="img"
-                alt="green iguana"
-                height="140"
-                image="/static/images/cards/contemplative-reptile.jpg"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  Lizard
-                </Typography>
-                <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                  Lizards are a widespread group of squamate reptiles, with over
-                  6,000 species, ranging across all continents except Antarctica
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button size="small">Gọi điện</Button>
-                <Button size="small">Xem chi tiết</Button>
-              </CardActions>
-            </Card>
+            <ArticleCard article={article} key={article._id} />
           ))}
         </BaseSwiper>
       </div>

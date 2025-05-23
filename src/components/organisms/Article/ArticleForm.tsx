@@ -1,12 +1,12 @@
 import { RHFAutoComplete } from "@/components/atoms/RHFAutoComplete";
 import { RHFTextField } from "@/components/atoms/RHFInput";
 import { RHFSelectField } from "@/components/atoms/RHFSelect";
+import { Address } from "@/components/molecules/Address";
 import {
   ARTICLE_TYPE,
   ARTICLE_TYPE_OPTIONS,
   LEVELS_ARRAY,
 } from "@/constants/article";
-import { DISTRICTS } from "@/constants/districts";
 import { useCategory } from "@/hooks/category/useCategory";
 import { Button } from "@mui/material";
 import React, { useMemo } from "react";
@@ -50,12 +50,16 @@ export const ArticleForm: React.FC<ArticleFormProps> = ({
         <div>
           <div className="mt-2">
             <RHFAutoComplete
-              name="level"
+              name="levels"
               label="Chọn trình độ"
               options={LEVELS_ARRAY}
               multiple
             />
           </div>
+          <div className="mb-2">
+            <Address />
+          </div>
+          <div className="mb-2"></div>
         </div>
       )}
 
@@ -79,14 +83,7 @@ export const ArticleForm: React.FC<ArticleFormProps> = ({
         />
       </div>
 
-      <div>
-        <RHFSelectField
-          options={DISTRICTS}
-          name="address"
-          label="Địa chỉ"
-          placeholder="Nhập địa chỉ"
-        />
-      </div>
+      <div></div>
 
       <div>
         <RHFTextField

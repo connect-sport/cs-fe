@@ -24,13 +24,20 @@ export const ArticleDto = z.object({
   updatedAt: z.string(),
   __v: z.number(),
   _id: z.string(),
+  levels: z.array(z.array(z.string())).optional(),
 });
 
 export const articleListReq = z.object({
   alias: z.string(),
-  page: z.number().optional(),
-  limit: z.number().optional(),
-  keyword: z.string().optional(),
+  pagination: z.object({
+    page: z.number().optional(),
+    limit: z.number().optional(),
+  }),
+  filters: z.object({
+    keyword: z.string().optional(),
+    address: z.string().optional(),
+    levels: z.array(z.array(z.string())).optional(),
+  }),
 });
 
 export const articleResponse = Reponse.merge(
@@ -39,7 +46,14 @@ export const articleResponse = Reponse.merge(
   })
 );
 
+export const filteringAricleDto = z.object({
+  keyword: z.string().optional(),
+  address: z.string().optional(),
+  levels: z.array(z.array(z.string())).optional(),
+});
+
 export type ArticleDto = z.infer<typeof ArticleDto>;
 export type ArticleReq = z.infer<typeof articleRequest>;
 export type ArticleRes = z.infer<typeof articleResponse>;
 export type ArticleListReq = z.infer<typeof articleListReq>;
+export type FilteringAricleDto = z.infer<typeof filteringAricleDto>;
