@@ -21,7 +21,7 @@ const HomePage = () => {
   return (
     <div>
       {categories?.map((category) => (
-        <div key={category.id} className="p-4 bg-gray-200 text-center rounded">
+        <div key={category._id} className="p-4 text-center rounded mb-4">
           <Highlight title={category.name} alias={category.alias} />
         </div>
       ))}

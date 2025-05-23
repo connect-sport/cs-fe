@@ -4,11 +4,11 @@ export const ARTICLE_TYPE = {
 };
 
 export const SPORT_TYPE = {
-  BADMINTON: "BADMINTON",
-  PICKLEBALL: "PICKLEBALL",
-  TENNIS: "TENNIS",
-  TABLE_TENNIS: "TABLE_TENNIS",
-  FOOTBALL: "FOOTBALL",
+  BADMINTON: "cau-long",
+  PICKLEBALL: "pickle-ball",
+  TENNIS: "tennis",
+  TABLE_TENNIS: "bong-ban",
+  FOOTBALL: "bong-da",
 };
 
 export const ARTICLE_TYPE_OPTIONS = [

@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { ArticleDto } from "@/dtos/article";
 import { CategoryDto } from "@/dtos/category.dto";
 import { MenuDto } from "@/dtos/menu.dto";
 
 export type ModalCallbackHandlers = {
-  onSuccess: (data: any) => void;
-  onError: (err: any) => void;
+  onSuccess?: (data: any) => void;
+  onError?: (err: any) => void;
   onClose: () => void;
 };
 
@@ -29,5 +30,8 @@ export type ModalPropsMap = {
   } & ModalCallbackHandlers;
   CREATE_OR_UPDATE_ARTICLE: {
     article?: any;
+  } & ModalCallbackHandlers;
+  DETAILS_ARTICLE: {
+    article?: ArticleDto;
   } & ModalCallbackHandlers;
 };
