@@ -33,4 +33,5 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
+            cd ~/deploy
             ./deploy-cs-fe.sh
