@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { ArticleContent } from "@/components/organisms/Article";
 import ButtonAddArticle from "@/components/atoms/ButtonAddArticle/ButtonAddArticle";
@@ -10,6 +8,7 @@ type ArticlePageProps = {
 };
 
 const ArticlePage: React.FC<ArticlePageProps> = ({ slug }) => {
+  console.log(slug);
   return (
     <main>
       <ArticleContent alias={slug} />
