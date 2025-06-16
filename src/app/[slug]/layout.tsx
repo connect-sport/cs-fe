@@ -1,20 +1,10 @@
-"use client";
-
-import { ArticlePage } from "@/components/pages/Article";
 import { MainTemplate } from "@/components/templates/MainTemplate";
-import React, { ReactNode, use } from "react";
+import React, { ReactNode } from "react";
 
-interface ArticleLayoutProps {
+interface Props {
   children: ReactNode;
-  params: Promise<{ slug: string }>;
 }
 
-export default function SlugLayout({ params }: ArticleLayoutProps) {
-  const { slug } = use(params);
-
-  return (
-    <MainTemplate>
-      <ArticlePage slug={slug} />
-    </MainTemplate>
-  );
+export default function SlugLayout({ children }: Props) {
+  return <MainTemplate>{children}</MainTemplate>;
 }

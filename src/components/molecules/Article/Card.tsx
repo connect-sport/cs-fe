@@ -1,3 +1,5 @@
+"use client";
+
 import { SportImage } from "@/components/atoms/SportImage";
 import { ARTICLE_TYPE_OPTIONS } from "@/constants/article";
 import { MODAL_KEYS } from "@/constants/modalContentMap";
@@ -13,6 +15,8 @@ import {
 import { flatMap, isEmpty } from "lodash";
 import { memo, useMemo } from "react";
 import { ArticleSkeleton } from "./Skeleton";
+import dayjs from "dayjs";
+import { DATE_TIME_FORMAT } from "@/constants/date";
 
 type ArticleCardProps = {
   article: ArticleDto;
@@ -39,12 +43,27 @@ const ArticleCard = memo(({ article, ref }: ArticleCardProps) => {
   if (!article) return <ArticleSkeleton />;
 
   return (
-    <Card ref={ref} sx={{ maxWidth: 345, height: 400, marginBottom: 2 }}>
+    <Card
+      ref={ref}
+      sx={{ maxWidth: 345, height: 400, marginBottom: 2, textAlign: "center" }}
+    >
       <SportImage type={article.category.alias} alt={article.category.name} />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {title}
+      <CardContent sx={{ paddingBottom: 0 }}>
+        <Typography
+          gutterBottom
+          variant="h5"
+          component="div"
+          className="flex justify-between"
+        >
+          <span>{title}</span>
+          <span>{article.address.label}</span>
         </Typography>
+        {article.fromDateTime && article.toDateTime && (
+          <Typography sx={{ color: "text.secondary" }} className="!font-bold">
+            {dayjs(article.fromDateTime).format(DATE_TIME_FORMAT)} đến{" "}
+            {dayjs(article.toDateTime).format(DATE_TIME_FORMAT)}
+          </Typography>
+        )}
         <Typography
           variant="h5"
           component="div"

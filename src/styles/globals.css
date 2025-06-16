@@ -13,9 +13,3 @@
 @import "swiper/css/effect-cube";
 
 @import "tailwindcss";
-
-html,
-body {
-  height: 100%;
-  overflow: hidden; /* chặn scroll ở body */
-}

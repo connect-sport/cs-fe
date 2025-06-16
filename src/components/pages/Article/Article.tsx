@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { ArticleContent } from "@/components/organisms/Article";
 import ButtonAddArticle from "@/components/atoms/ButtonAddArticle/ButtonAddArticle";

@@ -12,6 +12,8 @@ const initialState: ArticleState = {
     keyword: "",
     address: "",
     levels: [],
+    fromDateTime: "",
+    toDateTime: "",
   },
 };
 
@@ -26,7 +28,10 @@ const articleSlice = createSlice({
       state,
       action: PayloadAction<{ data: FilteringAricleDto }>
     ) => {
-      return { ...state, filters: action.payload.data };
+      return {
+        ...state,
+        filters: action.payload.data,
+      };
     },
     clearDataArticles: () => {
       return initialState;

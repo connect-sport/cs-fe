@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ant-design/v5-patch-for-react-19": "^1.0.3",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@hookform/resolvers": "^5.0.1",
@@ -31,6 +32,7 @@
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.56.3",
     "react-infinite-scroll-component": "^6.1.0",
+    "react-input-mask": "^3.0.0-alpha.2",
     "react-redux": "^9.2.0",
     "react-transition-group": "^4.4.5",
     "socket.io": "^4.8.1",
@@ -46,6 +48,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/react-input-mask": "^3.0.6",
     "eslint": "^9",
     "eslint-config-next": "15.3.2",
     "typescript": "^5"

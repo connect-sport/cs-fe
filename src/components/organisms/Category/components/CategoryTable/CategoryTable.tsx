@@ -1,3 +1,5 @@
+"use client";
+
 import { CategoryDto } from "@/dtos/category.dto";
 import { useCategory } from "@/hooks/category/useCategory";
 import {

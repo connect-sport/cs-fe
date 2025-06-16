@@ -4,7 +4,7 @@ const userSlice = createSlice({
   name: "user",
   initialState: {},
   reducers: {
-    setAccountManage: (state, action: PayloadAction<any>) => {
+    setAccountManage: (state, action: PayloadAction<object>) => {
       return { ...state, ...action.payload };
     },
     clearAccountManage: () => {
