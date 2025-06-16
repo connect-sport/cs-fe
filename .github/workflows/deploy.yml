@@ -27,4 +27,4 @@ jobs:
           context: . # Đường dẫn đến thư mục Next.js
           file: ./Dockerfile
           push: true
-          tags: nxhoang189/cs-fe:latest
+          tags: nxhoang189/cs-fe:latest 
