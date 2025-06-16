@@ -86,9 +86,9 @@ const ChatRoom = () => {
       </div>
 
       <div className="flex-1 p-4 overflow-y-auto bg-gray-50 space-y-3">
-        {messages.map((msg) => (
+        {messages.map((msg, index) => (
           <div
-            key={msg.id}
+            key={`${msg.id}-${index}`}
             className={`flex ${
               msg.sender === "me" ? "justify-end" : "justify-start"
             }`}
