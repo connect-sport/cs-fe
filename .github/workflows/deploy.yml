@@ -1,6 +1,8 @@
 name: Deploy Next.js (Frontend)
 
 on:
+  workflow_dispatch:
+
   push:
     branches: [develop] # Hoặc main nếu bạn muốn deploy từ main
 
