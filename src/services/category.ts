@@ -8,8 +8,13 @@ import {
 import { axiosInstance } from "@/libs/axios";
 
 export const getCategories = async (): Promise<CategoryDto[]> => {
-  const res = await axiosInstance.get(`${MAIN_CATEGORY_API}/all`);
-  return res.data.data || [];
+  try {
+    const res = await axiosInstance.get(`${MAIN_CATEGORY_API}/all`);
+    return res.data.data || [];
+  } catch (err) {
+    console.error("Error fetching categories:", err);
+    return []; // fallback: return empty list
+  }
 };
 
 export const createCategory = async (
