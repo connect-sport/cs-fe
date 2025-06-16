@@ -45,4 +45,8 @@ jobs:
             docker pull ${{ env.IMAGE_NAME }}:latest
 
             echo "🚀 Running new container..."
-            docke
+            docker
+
+      - name: Run deploy script on server
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "bash ~/deploy-cs-fe.sh"
