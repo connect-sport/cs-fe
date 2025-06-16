@@ -13,7 +13,7 @@ const MenuDeleteModal: React.FC<ModalPropsMap["DELETE_MENU"]> = ({
 
   const onDelete = async () => {
     try {
-      const result = await onDeleteMenu(data.id);
+      const result = await onDeleteMenu(data?.id || "");
       if (result) {
         onSuccess?.(result);
       }
@@ -29,7 +29,7 @@ const MenuDeleteModal: React.FC<ModalPropsMap["DELETE_MENU"]> = ({
       <h2>Delete Category</h2>
       <p className="my-2">
         <span>Are you sure you want to delete the menu</span>
-        <strong className="ml-1">{data.name}</strong>?
+        <strong className="ml-1">{data?.name}</strong>?
       </p>
       <div className="flex flex-row gap-2 justify-center mt-3">
         <Button variant="outlined" onClick={onClose}>

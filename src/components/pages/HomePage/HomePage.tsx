@@ -1,27 +1,22 @@
+"use client";
+
+import { ChatRoom } from "@/components/organisms/ChatRoom";
 import { Highlight } from "@/components/organisms/Highlight";
-import { useGetMe } from "@/hooks/auth/useGetMe";
-import { useCategory } from "@/hooks/category/useCategory";
-import { useAppDispatch } from "@/hooks/useAppDispatch";
-import { useEffect } from "react";
+import { CategoryDto } from "@/dtos/category.dto";
 
-const HomePage = () => {
-  const { data } = useGetMe();
-  const { categories } = useCategory();
+interface Props {
+  categories: CategoryDto[];
+}
 
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      dispatch({ type: "GET_USER", payload: data });
-    };
-
-    fetchUser();
-  }, [data, dispatch]);
-
+const HomePage = ({ categories }: Props) => {
   return (
     <div>
-      {categories?.map((category) => (
-        <div key={category._id} className="p-4 text-center rounded mb-4">
+      <ChatRoom />
+      {(categories || []).map((category, index) => (
+        <div
+          key={`${category.alias}-${index}`}
+          className="p-4 text-center rounded mb-4"
+        >
           <Highlight title={category.name} alias={category.alias} />
         </div>
       ))}

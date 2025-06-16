@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useRef } from "react";
 import { BaseSwiper } from "@/components/atoms/Swiper";
 import { useArticle } from "@/hooks/article/useArticle";
@@ -6,6 +8,7 @@ import { ArticleDto } from "@/dtos/article";
 import { CategoryIcon } from "@/components/atoms/CategoryIcon";
 import { useRouter } from "next/navigation";
 import { ArticleCard } from "@/components/molecules/Article/Card";
+import { Empty } from "antd";
 
 interface HighlightProps {
   title: string;
@@ -26,7 +29,7 @@ const Highlight: React.FC<HighlightProps> = ({ title, alias }) => {
   }, [onGetListArticle]);
 
   useEffect(() => {
-    onGetListArticleRef.current({ alias });
+    onGetListArticleRef.current({ alias, filters: {}, pagination: {} });
   }, [alias]);
 
   return (
@@ -41,18 +44,22 @@ const Highlight: React.FC<HighlightProps> = ({ title, alias }) => {
         </Button>
       </div>
       <div>
-        <BaseSwiper
-          breakpoints={{
-            320: { slidesPerView: 1, spaceBetween: 8 },
-            640: { slidesPerView: 2, spaceBetween: 12 },
-            1024: { slidesPerView: 3, spaceBetween: 16 },
-            1280: { slidesPerView: 4, spaceBetween: 20 },
-          }}
-        >
-          {articles.map((article: ArticleDto) => (
-            <ArticleCard article={article} key={article._id} />
-          ))}
-        </BaseSwiper>
+        {!articles.length ? (
+          <Empty description="Không có bài viết nào" />
+        ) : (
+          <BaseSwiper
+            breakpoints={{
+              320: { slidesPerView: 1, spaceBetween: 8 },
+              640: { slidesPerView: 2, spaceBetween: 12 },
+              1024: { slidesPerView: 3, spaceBetween: 16 },
+              1280: { slidesPerView: 4, spaceBetween: 20 },
+            }}
+          >
+            {articles.map((article: ArticleDto) => (
+              <ArticleCard article={article} key={article._id} />
+            ))}
+          </BaseSwiper>
+        )}
       </div>
     </section>
   );

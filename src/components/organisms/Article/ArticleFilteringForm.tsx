@@ -1,4 +1,5 @@
 import { RHFAutoComplete } from "@/components/atoms/RHFAutoComplete";
+import { RHFDateTimeRangePicker } from "@/components/atoms/RHFDateTimeRangePicker";
 import { RHFTextField } from "@/components/atoms/RHFInput";
 import { Address } from "@/components/molecules/Address";
 import { LEVELS_ARRAY } from "@/constants/article";
@@ -7,12 +8,12 @@ import React from "react";
 
 export interface Props {
   isLoading?: boolean;
-  onClose?: () => void;
+  closeDrawer?: () => void;
 }
 
 export const ArticleFilteringForm: React.FC<Props> = ({
   isLoading,
-  onClose,
+  closeDrawer,
 }) => {
   return (
     <>
@@ -33,8 +34,16 @@ export const ArticleFilteringForm: React.FC<Props> = ({
         <Address />
       </div>
 
+      <div className="mb-2">
+        <RHFDateTimeRangePicker
+          name={["fromDateTime", "toDateTime"]}
+          label="Chọn khoảng thời gian"
+          required
+        />
+      </div>
+
       <footer className="flex flex-row gap-2 justify-center">
-        <Button variant="outlined" onClick={onClose}>
+        <Button variant="outlined" onClick={closeDrawer}>
           Hủy
         </Button>
         <Button loading={isLoading} variant="contained" type="submit">

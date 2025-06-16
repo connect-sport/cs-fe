@@ -1,3 +1,5 @@
+"use client";
+
 import { MODAL_COMPONENTS } from "@/components/organisms/Modals";
 import { useModal } from "@/stores/contexts/ModalContext";
 

@@ -11,6 +11,7 @@ import {
   ArticleReq,
   ArticleRes,
 } from "@/dtos/article";
+import { ARTICLE_TYPE_OPTIONS } from "@/constants/article";
 
 export const useArticle = (alias: string) => {
   const {
@@ -57,7 +58,12 @@ export const useArticle = (alias: string) => {
     isLoadingCreate,
     isLoadingUpdate,
     isLoadingDelete,
-    articles: dataArticles?.data || [],
+    articles: (dataArticles?.data || []).map((article: ArticleDto) => ({
+      ...article,
+      title:
+        ARTICLE_TYPE_OPTIONS.find((type) => type.value === article.title)
+          ?.label || "",
+    })),
     onGetListArticle,
     onCreateArticle,
     onUpdateArticle,

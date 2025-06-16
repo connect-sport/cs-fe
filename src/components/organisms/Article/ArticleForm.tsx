@@ -1,4 +1,7 @@
+"use client";
+
 import { RHFAutoComplete } from "@/components/atoms/RHFAutoComplete";
+import { RHFDateTimeRangePicker } from "@/components/atoms/RHFDateTimeRangePicker";
 import { RHFTextField } from "@/components/atoms/RHFInput";
 import { RHFSelectField } from "@/components/atoms/RHFSelect";
 import { Address } from "@/components/molecules/Address";
@@ -15,9 +18,11 @@ import { useFormContext } from "react-hook-form";
 export interface ArticleFormProps {
   isLoading?: boolean;
   onClose: () => void;
+  alias?: string;
 }
 
 export const ArticleForm: React.FC<ArticleFormProps> = ({
+  alias,
   isLoading,
   onClose,
 }) => {
@@ -34,7 +39,7 @@ export const ArticleForm: React.FC<ArticleFormProps> = ({
   return (
     <>
       <div>
-        <div className="mt-2">
+        <div className="my-2">
           <RHFSelectField
             name="title"
             options={ARTICLE_TYPE_OPTIONS.map((type) => ({
@@ -46,9 +51,26 @@ export const ArticleForm: React.FC<ArticleFormProps> = ({
         </div>
       </div>
 
+      <div className="mb-2">
+        <RHFSelectField
+          options={(categories || [])
+            .filter((category) => category.alias === alias)
+            .map((category) => ({
+              label: category.name,
+              value: category.alias,
+            }))}
+          name="category"
+          label="Danh mục"
+        />
+      </div>
+
       {isToggether && (
         <div>
-          <div className="mt-2">
+          <div className="mb-2">
+            <Address />
+          </div>
+
+          <div className="mb-2">
             <RHFAutoComplete
               name="levels"
               label="Chọn trình độ"
@@ -56,25 +78,17 @@ export const ArticleForm: React.FC<ArticleFormProps> = ({
               multiple
             />
           </div>
-          <div className="mb-2">
-            <Address />
+          <div className="mb-2 flex gap-2 justify-between">
+            <RHFDateTimeRangePicker
+              name={["fromDateTime", "toDateTime"]}
+              label="Chọn khoảng thời gian"
+              required
+            />
           </div>
-          <div className="mb-2"></div>
         </div>
       )}
 
-      <div>
-        <RHFSelectField
-          options={(categories || []).map((category) => ({
-            label: category.name,
-            value: category.alias,
-          }))}
-          name="category"
-          label="Danh mục"
-        />
-      </div>
-
-      <div>
+      <div className="mb-2">
         <RHFTextField
           type="number"
           name="phoneNumber"
@@ -82,8 +96,6 @@ export const ArticleForm: React.FC<ArticleFormProps> = ({
           placeholder="Nhập số điện thoại"
         />
       </div>
-
-      <div></div>
 
       <div>
         <RHFTextField

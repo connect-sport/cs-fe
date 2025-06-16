@@ -1,7 +1,9 @@
+"use client";
+
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Masonry } from "@mui/lab";
 import { Box, useMediaQuery, useTheme } from "@mui/material";
-import { useEffect, useRef, useState, useCallback, use } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { ArticleDto } from "@/dtos/article";
 import { RootState } from "@/libs/store";
 import { useAppDispatch } from "@/hooks/useAppDispatch";
@@ -11,22 +13,20 @@ import { articleAction } from "@/reducers/article";
 import { ArticleSkeleton } from "@/components/molecules/Article/Skeleton";
 import { ArticleCard } from "@/components/molecules/Article/Card";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { Empty } from "antd";
 
 const PAGE_SIZE = 12;
 
 const ArticleContent: React.FC<{ alias: string }> = ({ alias }) => {
   const dispatch = useAppDispatch();
-  const { data: articlesData, filters } = useAppSelector(
-    (state: RootState) => state.article
-  );
-  const { onGetListArticle } = useArticle(alias);
+  const { filters } = useAppSelector((state: RootState) => state.article);
+  const { onGetListArticle, articles } = useArticle(alias);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
   const onGetListArticleRef = useRef(onGetListArticle);
   const pageRef = useRef(page);
   const nodeRef = useRef(null);
-  const articlesDataRef = useRef(articlesData);
   const theme = useTheme();
   const isSm = useMediaQuery(theme.breakpoints.down("sm"));
   const isMd = useMediaQuery(theme.breakpoints.down("md"));
@@ -37,12 +37,10 @@ const ArticleContent: React.FC<{ alias: string }> = ({ alias }) => {
   }, [onGetListArticle]);
 
   useEffect(() => {
-    articlesDataRef.current = articlesData;
-  }, [articlesData]);
-
-  useEffect(() => {
     pageRef.current = page;
-  }, [page]);
+
+    return () => {};
+  }, [dispatch, page]);
 
   useEffect(() => {
     dispatch(articleAction.setDataArticles({ data: [] }));
@@ -52,59 +50,36 @@ const ArticleContent: React.FC<{ alias: string }> = ({ alias }) => {
 
   useEffect(() => {
     const loadArticles = async () => {
-      const { data } = await onGetListArticleRef.current({
+      await onGetListArticleRef.current({
         alias,
         pagination: {
           page: 1,
           limit: PAGE_SIZE,
         },
-        filters: {},
+        filters: filters || {},
       });
-      dispatch(
-        articleAction.setDataArticles({
-          data,
-        })
-      );
     };
 
     loadArticles();
 
-    return () => {
-      dispatch(articleAction.setDataArticles({ data: [] }));
-    };
-  }, [alias, dispatch]);
+    return () => {};
+  }, [alias, dispatch, filters]);
 
   const loadMoreArticles = useCallback(async () => {
     if (loading || !hasMore) return;
     setLoading(true);
 
     try {
-      const { data: newArticles } = await onGetListArticleRef.current({
+      await onGetListArticleRef.current({
         alias,
         pagination: {
           page: pageRef.current,
           limit: PAGE_SIZE,
         },
-        filters,
+        filters: filters || {},
       });
 
-      const uniqueArticles = [
-        ...articlesDataRef.current,
-        ...newArticles.filter(
-          (article: ArticleDto) =>
-            !articlesDataRef.current.some(
-              (existing: ArticleDto) => existing._id === article._id
-            )
-        ),
-      ];
-
-      dispatch(
-        articleAction.setDataArticles({
-          data: uniqueArticles,
-        })
-      );
-
-      if (newArticles.length < PAGE_SIZE) {
+      if (articles.length < PAGE_SIZE) {
         setHasMore(false);
       } else {
         setPage((prev) => prev + 1);
@@ -114,24 +89,23 @@ const ArticleContent: React.FC<{ alias: string }> = ({ alias }) => {
     } finally {
       setLoading(false);
     }
-  }, [alias, dispatch, filters, hasMore, loading]);
+  }, [alias, articles.length, filters, hasMore, loading]);
+
+  if (!articles.length) {
+    return <Empty description="Không có bài viết nào" />;
+  }
 
   return (
     <Box
       id="scrollableDiv"
       sx={{
         width: "100%",
-        height: "100vh",
+        height: "auto",
         p: 2,
-        overflowY: "auto", // chỉ cần dòng này
-        scrollbarWidth: "none", // Firefox
-        "&::-webkit-scrollbar": {
-          display: "none", // Chrome, Safari
-        },
       }}
     >
       <InfiniteScroll
-        dataLength={articlesData.length}
+        dataLength={articles.length}
         next={loadMoreArticles}
         hasMore={hasMore}
         loader={null}
@@ -141,7 +115,7 @@ const ArticleContent: React.FC<{ alias: string }> = ({ alias }) => {
       >
         <Masonry columns={{ xs: 1, sm: 2, md: 3 }} spacing={2}>
           <TransitionGroup component={null}>
-            {(articlesData || []).map((article: ArticleDto) => (
+            {(articles || []).map((article: ArticleDto) => (
               <div key={article._id}>
                 <ArticleCard article={article} />
               </div>
@@ -153,6 +127,7 @@ const ArticleContent: React.FC<{ alias: string }> = ({ alias }) => {
                   timeout={300}
                   classNames="fade"
                   nodeRef={nodeRef}
+                  in
                 >
                   <div ref={nodeRef}>
                     <ArticleSkeleton />

@@ -8,6 +8,7 @@ type ArticlePageProps = {
 };
 
 const ArticlePage: React.FC<ArticlePageProps> = ({ slug }) => {
+  console.log(slug);
   return (
     <main>
       <ArticleContent alias={slug} />

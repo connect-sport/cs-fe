@@ -1,3 +1,5 @@
+"use client";
+
 import { DRAWER_KEYS } from "@/constants/drawerContentMap";
 import { useDrawer } from "@/stores/contexts/DrawerContext";
 import { Fab } from "@mui/material";
@@ -14,9 +16,6 @@ const ButtonFilterArticle: React.FC<ButtonFilterArticleProps> = ({ alias }) => {
   const handleClick = () => {
     openDrawer(DRAWER_KEYS.FILTER_ARTICLE, {
       alias,
-      onClose: () => {
-        // Handle any additional logic when the drawer is closed
-      },
     });
   };
 

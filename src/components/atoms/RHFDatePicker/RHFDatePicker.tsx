@@ -1,42 +1,41 @@
 import React from "react";
-import { useFormContext, Controller } from "react-hook-form";
-import {
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  MenuItem,
-  Select,
-} from "@mui/material";
+import { Controller, useFormContext } from "react-hook-form";
+import { DatePicker } from "antd";
 
-interface RHFDatePickerProps {
+type Props = {
   name: string;
-  label: string;
-  [key: string]: unknown;
-  options: Array<{ value: string | number; label: string }>;
-}
+  label?: string;
+  placeholder?: string;
+  format?: string;
+};
 
-const RHFDatePickerField = ({ name, label, options }: RHFDatePickerProps) => {
+const RHFDatePicker: React.FC<Props> = ({
+  name,
+  label,
+  placeholder = "Chọn ngày",
+  format = "YYYY-MM-DD",
+}) => {
   const { control } = useFormContext();
 
   return (
-    <Controller
-      name={name}
-      control={control}
-      render={({ field, fieldState: { error } }) => (
-        <FormControl fullWidth error={!!error}>
-          <InputLabel>{label}</InputLabel>
-          <Select {...field} label={label}>
-            {options.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </Select>
-          <FormHelperText>{error?.message}</FormHelperText>
-        </FormControl>
-      )}
-    />
+    <div>
+      {label && <label className="block mb-2">{label}</label>}
+      <Controller
+        name={name}
+        control={control}
+        render={({ field }) => (
+          <DatePicker
+            {...field}
+            value={field.value}
+            onChange={(date) => field.onChange(date)}
+            format={format}
+            placeholder={placeholder}
+            style={{ width: "100%" }}
+          />
+        )}
+      />
+    </div>
   );
 };
 
-export { RHFDatePickerField };
+export { RHFDatePicker };

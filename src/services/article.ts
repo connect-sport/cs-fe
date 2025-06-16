@@ -7,9 +7,7 @@ import {
 } from "@/dtos/article";
 import { axiosInstance } from "@/libs/axios";
 
-export const getArticlesByAlias = async (
-  data: ArticleListReq
-): Promise<ArticleRes> => {
+export const getArticlesByAlias = async (data: ArticleListReq) => {
   const res = await axiosInstance.post(`${MAIN_ARTICLE_API}`, data);
   return res.data.data as ArticleRes;
 };

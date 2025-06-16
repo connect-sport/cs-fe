@@ -1,3 +1,5 @@
+"use client";
+
 import { Fab } from "@mui/material";
 import React from "react";
 import AddIcon from "@mui/icons-material/Add";
@@ -6,7 +8,6 @@ import { MODAL_KEYS } from "@/constants/modalContentMap";
 import { useSnackbar } from "@/stores/contexts/SnackBarContext";
 import { useAppDispatch } from "@/hooks/useAppDispatch";
 import { articleAction } from "@/reducers/article";
-import { useAppSelector } from "@/hooks/useAppSelector";
 
 type ButtonAddArticleProps = {
   alias: string;
@@ -16,17 +17,14 @@ const ButtonAddArticle: React.FC<ButtonAddArticleProps> = ({ alias }) => {
   const { openModal, closeModal } = useModal();
   const { showSuccess, showError } = useSnackbar();
   const dispatch = useAppDispatch();
-  const { data: articlesData } = useAppSelector((state) => state.article);
 
   const handleClick = () => {
     openModal(MODAL_KEYS.CREATE_OR_UPDATE_ARTICLE, {
       article: { alias: alias || "" },
-      onSuccess: (data) => {
+      onSuccess: () => {
         closeModal();
         showSuccess("Tạo bài viết thành công");
-        dispatch(
-          articleAction.setDataArticles({ data: [...articlesData, ...data] })
-        );
+        dispatch(articleAction.setFilteringData({ data: {} }));
       },
       onError: () => {
         closeModal();

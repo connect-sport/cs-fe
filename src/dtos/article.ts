@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { Reponse } from "./response";
 import { CategoryDto } from "./category.dto";
+import { AddressDto } from "./address";
 
 export const articleRequest = z.object({
   id: z.string().optional(),
@@ -18,13 +19,15 @@ export const ArticleDto = z.object({
   title: z.string(),
   category: CategoryDto,
   phoneNumber: z.string(),
-  address: z.string(),
+  address: AddressDto,
   description: z.string(),
   createdAt: z.string(),
   updatedAt: z.string(),
   __v: z.number(),
   _id: z.string(),
   levels: z.array(z.array(z.string())).optional(),
+  fromDateTime: z.string().optional(),
+  toDateTime: z.string().optional(),
 });
 
 export const articleListReq = z.object({
@@ -46,11 +49,15 @@ export const articleResponse = Reponse.merge(
   })
 );
 
-export const filteringAricleDto = z.object({
-  keyword: z.string().optional(),
-  address: z.string().optional(),
-  levels: z.array(z.array(z.string())).optional(),
-});
+export const filteringAricleDto = z
+  .object({
+    keyword: z.string().optional(),
+    address: z.string().optional(),
+    levels: z.array(z.array(z.string())).optional(),
+    fromDateTime: z.string().optional(),
+    toDateTime: z.string().optional(),
+  })
+  .optional();
 
 export type ArticleDto = z.infer<typeof ArticleDto>;
 export type ArticleReq = z.infer<typeof articleRequest>;

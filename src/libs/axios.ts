@@ -12,10 +12,10 @@ const axiosInstance = axios.create({
 // Interceptor: Thêm Bearer Token vào mỗi request
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("token"); // Hoặc từ Redux, context, cookie...
-    if (token) {
-      config.headers["Authorization"] = `Bearer ${token}`;
-    }
+    // const token = localStorage.getItem("token"); // Hoặc từ Redux, context, cookie...
+    // if (token) {
+    //   config.headers["Authorization"] = `Bearer ${token}`;
+    // }
     return config;
   },
   (error) => {
@@ -49,7 +49,8 @@ axiosInstance.interceptors.response.use(
       // Xử lý các lỗi khác (ví dụ: cấu hình sai...)
       console.error("Error", error.message);
     }
-    return Promise.reject(error.response.data.message || "");
+    console.error("Error", error);
+    return Promise.reject(error?.response?.data?.message || "");
   }
 );
 

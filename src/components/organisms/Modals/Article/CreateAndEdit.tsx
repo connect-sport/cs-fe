@@ -1,3 +1,5 @@
+"use client";
+
 import { ARTICLE_TYPE_OPTIONS } from "@/constants/article";
 import { MODAL_KEYS } from "@/constants/modalContentMap";
 import { useArticle } from "@/hooks/article/useArticle";
@@ -6,6 +8,7 @@ import { ArticleFormValues, articleSchema } from "@/schemas/article";
 import { ModalPropsMap } from "@/types/modalProps";
 import { isObject } from "lodash";
 import { ArticleForm } from "../../Article";
+import dayjs from "dayjs";
 
 const CreateAndEditArticleModal = ({
   article,
@@ -39,10 +42,16 @@ const CreateAndEditArticleModal = ({
         description: "",
         category: article?.alias ?? "",
         levels: [],
+        fromDateTime: dayjs(new Date()),
+        toDateTime: dayjs(new Date()),
       }}
       className="w-full space-y-4 bg-white rounded"
     >
-      <ArticleForm onClose={onClose} isLoading={isLoadingCreate} />
+      <ArticleForm
+        alias={article?.alias}
+        onClose={onClose}
+        isLoading={isLoadingCreate}
+      />
     </RHFFormProvider>
   );
 };

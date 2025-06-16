@@ -1,1 +1,1 @@
-export { RHFDatePickerField } from "./RHFDatePicker";
+export { RHFDatePicker } from "./RHFDatePicker";

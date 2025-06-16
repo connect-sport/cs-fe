@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { RHFFormProvider } from "@/hooks/form/useFormProvider";
 import {
@@ -7,12 +9,24 @@ import {
 import { ArticleFilteringForm } from "../../Article/ArticleFilteringForm";
 import { useAppDispatch } from "@/hooks/useAppDispatch";
 import { articleAction } from "@/reducers/article";
+import { useDrawer } from "@/stores/contexts/DrawerContext";
+import dayjs from "dayjs";
 
 const FilterArticleDrawer = () => {
   const dispatch = useAppDispatch();
+  const { closeDrawer } = useDrawer();
 
   const onSubmit = async (data: ArticleFilteringFormValues) => {
-    dispatch(articleAction.setFilteringData({ data }));
+    closeDrawer();
+    dispatch(
+      articleAction.setFilteringData({
+        data: {
+          ...data,
+          fromDateTime: data.fromDateTime?.toISOString(),
+          toDateTime: data.toDateTime?.toISOString(),
+        },
+      })
+    );
   };
 
   return (
@@ -23,10 +37,12 @@ const FilterArticleDrawer = () => {
         keyword: "",
         address: "",
         levels: [],
+        fromDateTime: dayjs(),
+        toDateTime: dayjs().add(2, "hour"),
       }}
       className="w-full space-y-4 bg-white rounded"
     >
-      <ArticleFilteringForm />
+      <ArticleFilteringForm closeDrawer={() => onSubmit({})} />
     </RHFFormProvider>
   );
 };

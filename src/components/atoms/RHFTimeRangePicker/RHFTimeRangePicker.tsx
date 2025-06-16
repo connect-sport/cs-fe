@@ -1,9 +1,9 @@
 import React from "react";
-import { TimePicker, Form, Space } from "antd";
-import { Controller, Control, FieldValues } from "react-hook-form";
+import { TimePicker, Form, Space, Typography } from "antd";
+import { Controller, useFormContext } from "react-hook-form";
+import { Dayjs } from "dayjs";
 
 type Props = {
-  control: Control<FieldValues>;
   name: [string, string];
   label?: string;
   required?: boolean;
@@ -11,15 +11,38 @@ type Props = {
 };
 
 const RHFTimeRangePicker: React.FC<Props> = ({
-  control,
   name,
   label,
   required = false,
   format = "HH:mm",
 }) => {
+  const { control, watch } = useFormContext();
+  const fromTime: Dayjs | null = watch(name[0]);
+
+  const getDisabledToTime = () => {
+    if (!fromTime) return {};
+
+    const fromHour = fromTime.hour();
+    const fromMinute = fromTime.minute();
+
+    return {
+      disabledTime: () => ({
+        disabledHours: () => Array.from({ length: fromHour }, (_, i) => i),
+        disabledMinutes: (selectedHour: number) => {
+          if (selectedHour === fromHour) {
+            return Array.from({ length: fromMinute + 1 }, (_, i) => i);
+          }
+          return [];
+        },
+      }),
+    };
+  };
+
   return (
-    <Form.Item label={label} required={required}>
+    <Form.Item required={required} className="!mb-2">
+      <Typography className="mb-2">{label}</Typography>
       <Space>
+        {/* From Time */}
         <Controller
           name={name[0]}
           control={control}
@@ -33,7 +56,7 @@ const RHFTimeRangePicker: React.FC<Props> = ({
                 onChange={(value) => field.onChange(value)}
               />
               {fieldState.error && (
-                <div style={{ color: "red", fontSize: 12 }}>
+                <div className="text-red-500 text-xs">
                   {fieldState.error.message}
                 </div>
               )}
@@ -43,6 +66,7 @@ const RHFTimeRangePicker: React.FC<Props> = ({
 
         <span>-</span>
 
+        {/* To Time */}
         <Controller
           name={name[1]}
           control={control}
@@ -54,9 +78,10 @@ const RHFTimeRangePicker: React.FC<Props> = ({
                 format={format}
                 placeholder="Đến giờ"
                 onChange={(value) => field.onChange(value)}
+                {...getDisabledToTime()}
               />
               {fieldState.error && (
-                <div style={{ color: "red", fontSize: 12 }}>
+                <div className="text-red-500 text-xs">
                   {fieldState.error.message}
                 </div>
               )}
